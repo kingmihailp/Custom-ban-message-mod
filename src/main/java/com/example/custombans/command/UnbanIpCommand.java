@@ -22,11 +22,10 @@ public final class UnbanIpCommand {
     private UnbanIpCommand() {}
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        int permLevel = CustomBansMod.CONFIG.banIpPermissionLevel.get();
-
+        // Read config lazily inside requires() — SERVER config is not yet loaded at registration time.
         dispatcher.register(
             Commands.literal("unban-ip")
-                .requires(src -> src.hasPermission(permLevel))
+                .requires(src -> src.hasPermission(CustomBansMod.CONFIG.banIpPermissionLevel.get()))
                 .then(Commands.argument("ip", StringArgumentType.word())
                     .executes(UnbanIpCommand::execute)
                 )
@@ -34,7 +33,7 @@ public final class UnbanIpCommand {
 
         dispatcher.register(
             Commands.literal("pardon-ip")
-                .requires(src -> src.hasPermission(permLevel))
+                .requires(src -> src.hasPermission(CustomBansMod.CONFIG.banIpPermissionLevel.get()))
                 .then(Commands.argument("ip", StringArgumentType.word())
                     .executes(UnbanIpCommand::execute)
                 )

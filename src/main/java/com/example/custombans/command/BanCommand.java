@@ -50,18 +50,20 @@ public final class BanCommand {
     private BanCommand() {}
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        int permLevel = CustomBansMod.CONFIG.banPermissionLevel.get();
-
         /*
          * We override Brigadier's /ban node. NeoForge calls RegisterCommandsEvent
          * after vanilla has already registered its commands, so we re-register the
          * literal "ban" — Brigadier merges nodes and the execution logic we provide
          * takes priority over the argument paths we define (greedy string swallows
          * the vanilla branch).
+         *
+         * Config values are read lazily inside requires() because SERVER configs are
+         * not yet loaded when RegisterCommandsEvent fires (would throw
+         * IllegalStateException: Cannot get config value before config is loaded).
          */
         dispatcher.register(
             Commands.literal("ban")
-                .requires(src -> src.hasPermission(permLevel))
+                .requires(src -> src.hasPermission(CustomBansMod.CONFIG.banPermissionLevel.get()))
                 // /ban <targets>  — permanent, no reason
                 .then(Commands.argument("targets", GameProfileArgument.gameProfile())
                     .executes(ctx -> execute(ctx, ""))

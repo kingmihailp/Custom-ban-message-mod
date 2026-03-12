@@ -27,11 +27,10 @@ public final class UnbanCommand {
     private UnbanCommand() {}
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        int permLevel = CustomBansMod.CONFIG.banPermissionLevel.get();
-
+        // Read config lazily inside requires() — SERVER config is not yet loaded at registration time.
         dispatcher.register(
             Commands.literal("unban")
-                .requires(src -> src.hasPermission(permLevel))
+                .requires(src -> src.hasPermission(CustomBansMod.CONFIG.banPermissionLevel.get()))
                 .then(Commands.argument("targets", GameProfileArgument.gameProfile())
                     .executes(UnbanCommand::execute)
                 )
@@ -40,7 +39,7 @@ public final class UnbanCommand {
         // Also keep vanilla /pardon but with our permission level
         dispatcher.register(
             Commands.literal("pardon")
-                .requires(src -> src.hasPermission(permLevel))
+                .requires(src -> src.hasPermission(CustomBansMod.CONFIG.banPermissionLevel.get()))
                 .then(Commands.argument("targets", GameProfileArgument.gameProfile())
                     .executes(UnbanCommand::execute)
                 )

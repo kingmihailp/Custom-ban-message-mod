@@ -49,11 +49,10 @@ public final class BanIpCommand {
     private BanIpCommand() {}
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        int permLevel = CustomBansMod.CONFIG.banIpPermissionLevel.get();
-
+        // Read config lazily inside requires() — SERVER config is not yet loaded at registration time.
         dispatcher.register(
             Commands.literal("ban-ip")
-                .requires(src -> src.hasPermission(permLevel))
+                .requires(src -> src.hasPermission(CustomBansMod.CONFIG.banIpPermissionLevel.get()))
                 // /ban-ip <target>
                 .then(Commands.argument("target", StringArgumentType.word())
                     .executes(ctx -> execute(ctx, ""))
