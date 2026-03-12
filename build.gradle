@@ -17,6 +17,15 @@ java {
     }
 }
 
+// ── Access Transformers ───────────────────────────────────────────────────────
+// NeoGradle picks up the AT file and applies it during decompilation so that
+// the protected Connection field becomes public at compile time.
+minecraft {
+    accessTransformers {
+        file('src/main/resources/META-INF/accesstransformer.cfg')
+    }
+}
+
 runs {
     configureEach {
         systemProperty 'forge.logging.markers', 'REGISTRIES'
@@ -75,7 +84,8 @@ tasks.named('jar', Jar).configure {
                 'Implementation-Title'  : project.name,
                 'Implementation-Version': project.jar.archiveVersion,
                 'Implementation-Vendor' : mod_authors,
-                'MixinConfigs'          : "${mod_id}.mixins.json"
+                'MixinConfigs'          : "${mod_id}.mixins.json",
+                'FMLAT'                 : 'accesstransformer.cfg'
         ])
     }
 }

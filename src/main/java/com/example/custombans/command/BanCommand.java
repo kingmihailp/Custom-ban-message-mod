@@ -134,8 +134,11 @@ public final class BanCommand {
             String timeInfo = (duration != null)
                     ? " for " + TimeUtil.formatDuration(duration, " ")
                     : " permanently";
+            // 'reason' is reassigned above, so capture effectively-final copies for the lambda
+            final String finalTimeInfo = timeInfo;
+            final String finalReason   = reason;
             source.sendSuccess(
-                    () -> Component.literal("Banned " + profile.getName() + timeInfo + ". Reason: " + reason),
+                    () -> Component.literal("Banned " + profile.getName() + finalTimeInfo + ". Reason: " + finalReason),
                     true
             );
 
