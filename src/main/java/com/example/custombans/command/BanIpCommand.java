@@ -132,8 +132,10 @@ public final class BanIpCommand {
         String timeInfo = (duration != null)
                 ? " for " + TimeUtil.formatDuration(duration, " ")
                 : " permanently";
+        final String finalTimeInfo = timeInfo;
+        final String finalReason   = reason;
         source.sendSuccess(
-                () -> Component.literal("IP-banned " + ip + timeInfo + ". Reason: " + reason),
+                () -> Component.literal("IP-banned " + ip + finalTimeInfo + ". Reason: " + finalReason),
                 true
         );
         return 1;
