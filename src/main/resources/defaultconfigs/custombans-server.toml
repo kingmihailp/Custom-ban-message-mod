@@ -1,0 +1,70 @@
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║                   Custom Ban Messages — Server Config                   ║
+# ╠══════════════════════════════════════════════════════════════════════════╣
+# ║  Placeholders (usable in all message fields):                           ║
+# ║    {player}   — banned player's name (or IP for /ban-ip)                ║
+# ║    {source}   — who issued the ban (admin name or "Console")            ║
+# ║    {reason}   — ban reason text                                         ║
+# ║    {date}     — date the ban was issued (format set by date_format)     ║
+# ║    {expires}  — expiry date, or the permanent_text value                ║
+# ║    {duration} — remaining time (e.g. "2d 3h 15m"), or permanent_text   ║
+# ║    {newline}  — explicit line break inside a single list entry          ║
+# ║                                                                          ║
+# ║  Color / formatting codes:                                               ║
+# ║    &#RRGGBB  — 24-bit hex color, e.g.  &#FF5555                         ║
+# ║    &0 – &9, &a – &f  — standard Minecraft colors                        ║
+# ║    &l  bold     &o  italic    &n  underline                             ║
+# ║    &m  strikethrough          &k  obfuscated                            ║
+# ║    &r  reset all formatting                                              ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+[ban_screen]
+    # Title shown at the very top of the disconnect/ban screen.
+    title = "&#FF4444&lYou have been banned!"
+
+    # Lines displayed on the ban screen below the title.
+    # Each list entry is one visual line.
+    lines = [
+        "",
+        "&#FFAA00&lReason:      &r&#FFFFFF{reason}",
+        "&#FFAA00&lBanned by:   &r&#FFFFFF{source}",
+        "&#FFAA00&lBan date:    &r&#FFFFFF{date}",
+        "&#FFAA00&lExpires:     &r&#FFFFFF{expires}",
+        "&#FFAA00&lTime left:   &r&#FFFFFF{duration}",
+        "",
+        "&#AAAAAA&oAppeal at:  discord.gg/your-server"
+    ]
+
+[chat_notification]
+    # Whether to broadcast a message in chat when /ban is used.
+    enabled = true
+
+    # Whether the same notification applies to /ban-ip.
+    on_ip_ban = true
+
+    # Lines broadcast to all online players when a ban is issued.
+    lines = [
+        "&#FF4444&l[BAN] &r&#FFFFFF{player} &7has been banned!",
+        "&#7F7F7F  Reason: &f{reason} &7| Expires: &f{expires}"
+    ]
+
+[formatting]
+    # Java SimpleDateFormat pattern for {date} and {expires}.
+    # Examples: "dd.MM.yyyy HH:mm"  |  "MM/dd/yyyy"  |  "yyyy-MM-dd HH:mm:ss"
+    date_format = "dd.MM.yyyy HH:mm"
+
+    # Text used in {expires} when the ban is permanent.
+    permanent_text = "&#FF4444Never"
+
+    # Text used in {duration} when the ban is permanent.
+    permanent_duration_text = "&#FF4444Forever"
+
+    # Separator placed between duration components (e.g. "2d 3h 15m").
+    duration_separator = " "
+
+[permissions]
+    # Required operator permission level for /ban  (vanilla default: 3)
+    ban_permission_level = 3
+
+    # Required operator permission level for /ban-ip  (vanilla default: 3)
+    ban_ip_permission_level = 3

@@ -1,0 +1,24 @@
+# Gradle
+.gradle/
+build/
+out/
+repo/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.classpath
+*.project
+.settings/
+
+# NeoForge / MDK run dirs
+run/
+runs/
+src/generated/
+
+# OS
+.DS_Store
+Thumbs.db
