@@ -6,6 +6,9 @@
   "mixins": [
     "PlayerListMixin"
   ],
+  "client": [
+    "client.DisconnectedScreenMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

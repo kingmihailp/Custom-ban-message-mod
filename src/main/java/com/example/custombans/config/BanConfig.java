@@ -14,6 +14,13 @@ public class BanConfig {
     /** Title line (first bold line) on the ban screen. */
     public final ModConfigSpec.ConfigValue<String> banScreenTitle;
 
+    /**
+     * Filename of the image to display at the top of the ban screen.
+     * The file must be placed in {@code config/custombans/assets/<filename>}.
+     * Leave empty to disable the image. Supports PNG files.
+     */
+    public final ModConfigSpec.ConfigValue<String> banScreenImage;
+
     // ── Chat Notification ─────────────────────────────────────────────────────
 
     /** Whether to broadcast a chat message when a player is banned. */
@@ -94,6 +101,13 @@ public class BanConfig {
                         "",
                         "&#AAAAAA&oAppeal at: discord.gg/example"
                 ), e -> e instanceof String);
+
+        banScreenImage = builder
+                .comment("Image file to show at the top of the ban screen.",
+                         "Place the file in config/custombans/assets/<filename> on the client machine.",
+                         "Supports PNG format. Leave empty to disable.",
+                         "Example: ban_logo.png")
+                .define("image", "");
 
         builder.pop();
 

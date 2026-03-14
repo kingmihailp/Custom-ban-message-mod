@@ -50,10 +50,19 @@ public final class BanFormatter {
         Component titleComp = TextUtil.parse(title);
         Component bodyComp  = TextUtil.joinLines(filled);
 
-        return Component.empty()
+        net.minecraft.network.chat.MutableComponent root = Component.empty()
                 .append(titleComp)
                 .append(Component.literal("\n"))
                 .append(bodyComp);
+
+        // Embed the image filename as an invisible style marker so the client-side
+        // mixin can read it from the disconnect packet without affecting rendered text.
+        String imageName = CustomBansMod.CONFIG.banScreenImage.get().trim();
+        if (!imageName.isEmpty()) {
+            root.withStyle(s -> s.withInsertion("CUSTOMBANS_IMAGE:" + imageName));
+        }
+
+        return root;
     }
 
     /**
@@ -96,10 +105,17 @@ public final class BanFormatter {
                 .map(line -> applyPlaceholders(line, ip, source, reason, dateStr, expiresStr, durationStr))
                 .toList();
 
-        return Component.empty()
+        net.minecraft.network.chat.MutableComponent root = Component.empty()
                 .append(TextUtil.parse(title))
                 .append(Component.literal("\n"))
                 .append(TextUtil.joinLines(filled));
+
+        String imageName = CustomBansMod.CONFIG.banScreenImage.get().trim();
+        if (!imageName.isEmpty()) {
+            root.withStyle(s -> s.withInsertion("CUSTOMBANS_IMAGE:" + imageName));
+        }
+
+        return root;
     }
 
     /**

@@ -22,6 +22,12 @@
     # Title shown at the very top of the disconnect/ban screen.
     title = "&#FF4444&lYou have been banned!"
 
+    # Image file shown at the top of the ban screen (client-side feature).
+    # Place the PNG file in  config/custombans/assets/<filename>  on each client.
+    # The folder is created automatically on first launch if the mod is installed client-side.
+    # Leave empty to disable.  Example: image = "ban_logo.png"
+    image = ""
+
     # Lines displayed on the ban screen below the title.
     # Each list entry is one visual line.
     lines = [
